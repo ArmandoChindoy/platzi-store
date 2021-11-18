@@ -1,9 +1,6 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const DotenvWebpackPlugin = require('dotenv-webpack');
 
 module.exports = (env) => {
@@ -61,17 +58,9 @@ module.exports = (env) => {
       new MiniCssExtractPlugin({
         filename: 'assets/[name].css',
       }),
-      new CleanWebpackPlugin(),
       new DotenvWebpackPlugin({
-        path: path.resolve(
-          __dirname,
-          `./.env${env.file ? `.${env.file}` : ''}`,
-        ),
+        path: path.resolve(__dirname, `.env${env.file ? `.${env.file}` : ''}`),
       }),
     ],
-    optimization: {
-      minimize: true,
-      minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
-    },
   };
 };
