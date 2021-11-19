@@ -4,7 +4,7 @@
   "description": "Proyecto para el curso de Jest",
   "main": "src/index.js",
   "scripts": {
-    "build": "webpack --mode production --config webpack.config.js",
+    "build": "webpack --env file=development --mode production --config webpack.config.js",
     "start": "webpack serve --env file=development --open --mode development --config webpack.config.dev.js",
     "lint": "standard --fix"
   },
@@ -50,6 +50,8 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-minimizer-webpack-plugin": "^3.1.4",
     "dotenv-webpack": "^7.0.3",
+    "image-minimizer-webpack-plugin": "^2.2.0",
+    "imagemin-optipng": "^8.0.0",
     "standard": "^16.0.4",
     "terser-webpack-plugin": "^5.2.5",
     "webpack-dev-server": "^4.5.0"
@@ -59,7 +61,7 @@
       "./node_modules/standard/eslintrc.json"
     ],
     "rules": {
-      "no-undef":0
+      "no-undef": 0
     }
   },
   "bugs": {

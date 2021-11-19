@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const DotenvWebpackPlugin = require('dotenv-webpack')
+const { default: ImageMinimizerPlugin } = require('image-minimizer-webpack-plugin/types')
 
 module.exports = (env) => {
   return {
@@ -47,6 +48,10 @@ module.exports = (env) => {
             'css-loader',
             'stylus-loader'
           ]
+        },
+        {
+          test: /\.(png|jpg )/,
+          type: 'asset'
         }
       ]
     },
@@ -60,6 +65,13 @@ module.exports = (env) => {
       }),
       new DotenvWebpackPlugin({
         path: path.resolve(__dirname, `.env${env.file ? `.${env.file}` : ''}`)
+      }),
+      new ImageMinimizerPlugin({
+        minimizerOptions: {
+          plugins: [
+            ['optipng', { optimizationLevel: 5 }]
+          ]
+        }
       })
     ]
   }

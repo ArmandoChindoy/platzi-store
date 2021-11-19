@@ -3,7 +3,7 @@ import { GET } from '@/api/Requests'
 import { initialState } from '../api/Urls'
 
 const useInitailState = () => {
-  const [data, setData] = useState(initialState)
+  const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   useEffect(async () => {

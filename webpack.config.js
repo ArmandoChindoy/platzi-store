@@ -5,6 +5,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const DotenvWebpackPlugin = require('dotenv-webpack')
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
 
 module.exports = (env) => {
   return {
@@ -50,6 +51,10 @@ module.exports = (env) => {
             'css-loader',
             'stylus-loader'
           ]
+        },
+        {
+          test: /\.(png|jpg )/,
+          type: 'asset/resource'
         }
       ]
     },
@@ -67,6 +72,13 @@ module.exports = (env) => {
           __dirname,
           `./.env${env.file ? `.${env.file}` : ''}`
         )
+      }),
+      new ImageMinimizerPlugin({
+        minimizerOptions: {
+          plugins: [
+            ['optipng', { optimizationLevel: 5 }]
+          ]
+        }
       })
     ],
     optimization: {
