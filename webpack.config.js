@@ -1,28 +1,28 @@
-const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const DotenvWebpackPlugin = require('dotenv-webpack');
+const path = require('path')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const DotenvWebpackPlugin = require('dotenv-webpack')
 
 module.exports = (env) => {
   return {
     entry: './src/index.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js',
+      filename: 'bundle.js'
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(__dirname, './src')
       },
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx']
     },
     devServer: {
       port: 3000,
       // contentBase: path.join(__dirname, 'dist'),
-      compress: true,
+      compress: true
     },
     module: {
       rules: [
@@ -30,48 +30,48 @@ module.exports = (env) => {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: {
-            loader: 'babel-loader',
-          },
+            loader: 'babel-loader'
+          }
         },
         {
           test: /\.html$/,
           use: [
             {
-              loader: 'html-loader',
-            },
-          ],
+              loader: 'html-loader'
+            }
+          ]
         },
         {
           test: /\.css|.styl$/,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader,
+              loader: MiniCssExtractPlugin.loader
             },
             'css-loader',
-            'stylus-loader',
-          ],
-        },
-      ],
+            'stylus-loader'
+          ]
+        }
+      ]
     },
     plugins: [
       new HtmlWebPackPlugin({
         template: './public/index.html',
-        filename: './index.html',
+        filename: './index.html'
       }),
       new MiniCssExtractPlugin({
-        filename: 'assets/[name].css',
+        filename: 'assets/[name].css'
       }),
       new CleanWebpackPlugin(),
       new DotenvWebpackPlugin({
         path: path.resolve(
           __dirname,
-          `./.env${env.file ? `.${env.file}` : ''}`,
-        ),
-      }),
+          `./.env${env.file ? `.${env.file}` : ''}`
+        )
+      })
     ],
     optimization: {
       minimize: true,
-      minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
-    },
-  };
-};
+      minimizer: [new TerserPlugin(), new CssMinimizerPlugin()]
+    }
+  }
+}

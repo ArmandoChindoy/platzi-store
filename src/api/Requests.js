@@ -1,18 +1,18 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export const GET = async (url, sendParams) => {
-  const params = Object.assign({}, sendParams);
-  const lang = localStorage.getItem('lang') || 'es';
+  const params = Object.assign({}, sendParams)
+  const lang = localStorage.getItem('lang') || 'es'
   try {
     return await axios({
       headers: {
-        lang,
+        lang
       },
       url,
       method: 'GET',
-      params,
-    });
+      params
+    })
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}

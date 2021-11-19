@@ -1,19 +1,19 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import actions from '../actions';
-import '../styles/components/Products.styl';
-import Product from './Product';
+import React from 'react'
+import { connect } from 'react-redux'
+import actions from '../actions'
+import '../styles/components/Products.styl'
+import Product from './Product'
 
 const Products = (props) => {
-  const { products } = props;
+  const { products } = props
 
   const handleAddToCart = product => () => {
-    props.addToCart(product);
-  };
+    props.addToCart(product)
+  }
 
   return (
-    <div className="Products">
-      <div className="Products-items">
+    <div className='Products'>
+      <div className='Products-items'>
         {products.map(product => (
           <Product
             key={product.id}
@@ -23,17 +23,17 @@ const Products = (props) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => {
   return {
-    products: state.products,
-  };
-};
+    products: state.products
+  }
+}
 
 const mapDispatchToProps = {
-  addToCart: actions.addToCart,
-};
+  addToCart: actions.addToCart
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default connect(mapStateToProps, mapDispatchToProps)(Products)

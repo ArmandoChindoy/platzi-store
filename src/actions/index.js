@@ -1,16 +1,16 @@
 const addToCart = payload => ({
   type: 'ADD_TO_CART',
-  payload,
-});
+  payload
+})
 
 const removeFromCart = payload => ({
   type: 'REMOVE_FROM_CART',
-  payload,
-});
+  payload
+})
 
 const actions = {
   addToCart,
-  removeFromCart,
-};
+  removeFromCart
+}
 
-export default actions;
+export default actions
