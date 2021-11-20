@@ -106,7 +106,7 @@ module.exports = (env) => {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             chunks: 'all',
             name: 'commons',
-            filename: 'assets/common.[chunkhash.js]',
+            filename: 'assets/common.[chunkhash].js',
             reuseExistingChunk: true,
             enforce: true,
             priority: 20
@@ -115,7 +115,7 @@ module.exports = (env) => {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             chunks: 'all',
             name: 'vendors',
-            filename: 'assets/vendor.[chunkhash.js]',
+            filename: 'assets/vendor.[chunkhash].js',
             reuseExistingChunk: true,
             enforce: true,
             priority: 10
