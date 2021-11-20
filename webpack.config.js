@@ -67,8 +67,8 @@ module.exports = (env) => {
           ]
         },
         {
-          test: /\.(png|jpg )/,
-          type: 'asset/resource'
+          test: /\.(png|jpg)/,
+          type: 'asset'
         }
       ]
     },
@@ -106,7 +106,7 @@ module.exports = (env) => {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             chunks: 'all',
             name: 'commons',
-            filename: 'assests/common.[chunckhash.js]',
+            filename: 'assets/common.[chunckhash.js]',
             reuseExistingChunk: true,
             enforce: true,
             priority: 20
@@ -115,7 +115,7 @@ module.exports = (env) => {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             chunks: 'all',
             name: 'vendors',
-            filename: 'assests/vendor.[chunckhash.js]',
+            filename: 'assets/vendor.[chunckhash.js]',
             reuseExistingChunk: true,
             enforce: true,
             priority: 10
