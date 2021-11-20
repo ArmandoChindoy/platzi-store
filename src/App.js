@@ -2,6 +2,7 @@ import React from 'react'
 import useInitailState from '@/hooks/useInitialState'
 import AppRoutes from '@/routes/AppRoutes'
 import AppContext from './context/AppContext'
+import { hot } from 'react-hot-loader/root'
 
 const App = () => {
   const { data, loading, error } = useInitailState()
@@ -14,4 +15,4 @@ const App = () => {
   )
 }
 
-export default App
+export default hot(App)

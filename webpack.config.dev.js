@@ -2,25 +2,30 @@ const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const DotenvWebpackPlugin = require('dotenv-webpack')
-const { default: ImageMinimizerPlugin } = require('image-minimizer-webpack-plugin/types')
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
 
 module.exports = (env) => {
   return {
-    entry: './src/index.js',
+    entry: {
+      home: ['react-hot-loader/patch', './src/index.js'],
+      header: ['react-hot-loader/patch', './src/Header/index.js']
+    },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js'
+      filename: '[name].bundle.js',
+      chunkFilename: '[name].bundle.js'
     },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src')
       },
-      extensions: ['.js', '.jsx']
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
     },
     devServer: {
       port: 3000,
       // contentBase: path.join(__dirname, 'dist'),
-      compress: true
+      compress: true,
+      hot: true
     },
     module: {
       rules: [
@@ -29,6 +34,13 @@ module.exports = (env) => {
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader'
+          }
+        },
+        {
+          test: /\.(ts|tsx)/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'ts-loader'
           }
         },
         {
@@ -73,6 +85,11 @@ module.exports = (env) => {
           ]
         }
       })
-    ]
+    ],
+    optimization: {
+      splitChunks: {
+        chunks: 'all'
+      }
+    }
   }
 }

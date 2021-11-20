@@ -9,16 +9,20 @@ const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
 
 module.exports = (env) => {
   return {
-    entry: './src/index.js',
+    entry: {
+      home: './src/index.js',
+      header: './src/Header/index.js'
+    },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js'
+      filename: '[name]bundle.js',
+      chunkFilename: '[name]bundle.js'
     },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src')
       },
-      extensions: ['.js', '.jsx']
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
     },
     devServer: {
       port: 3000,
@@ -32,6 +36,16 @@ module.exports = (env) => {
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader'
+          }
+        },
+        {
+          test: /\.(ts|tsx)/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
           }
         },
         {
@@ -83,7 +97,32 @@ module.exports = (env) => {
     ],
     optimization: {
       minimize: true,
-      minimizer: [new TerserPlugin(), new CssMinimizerPlugin()]
+      minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          default: false,
+          commons: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            chunks: 'all',
+            name: 'commons',
+            filename: 'assests/common.[chunckhash.js]',
+            reuseExistingChunk: true,
+            enforce: true,
+            priority: 20
+          },
+          vendors: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            chunks: 'all',
+            name: 'vendors',
+            filename: 'assests/vendor.[chunckhash.js]',
+            reuseExistingChunk: true,
+            enforce: true,
+            priority: 10
+          }
+        }
+
+      }
     }
   }
 }
